@@ -1,4 +1,4 @@
-import Header from '../comps/header';
+import Header from '../components/header';
 
 export default function Index() {
   return (
