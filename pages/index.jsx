@@ -1,10 +1,9 @@
-import Header from '../components/header';
+import Layout from '../components/layout';
 
 export default function Index() {
   return (
-    <div>
-      <Header />
+    <Layout>
       <p>Hello Puggy.js</p>
-    </div>
+    </Layout>
   )
 }
