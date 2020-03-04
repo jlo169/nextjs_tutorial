@@ -25,7 +25,7 @@ export default function Blog() {
         ))}
       </ul>
       <style>
-        {`
+        
           h1,
           a {
             font-family: 'Arial';
@@ -48,7 +48,7 @@ export default function Blog() {
           a:hover {
             opacity: 0.6;
           }
-        `}
+        
       </style>
     </Layout>
   );
