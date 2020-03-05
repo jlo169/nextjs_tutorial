@@ -1,58 +1,109 @@
 
-import Link from 'next/link';
-import Layout from '../components/layout';
+// import Link from 'next/link';
+// import Layout from '../components/layout';
 // import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr';
 
-function getPosts() {
-  return [
-    {id: 'hello-puggy', title: 'Hello Puggy'},
-    {id: 'learn-puggyjs', title: 'Learning Puggy.js is awesome'},
-    {id: 'deploy-puggyjs', title: 'Deploy pugs with ZEIT'}
-  ];
-};
+function fetcher(url) {
+  console.log(url);
+  return fetch(url).then(res => res.json());
+}
 
-export default function Blog() {
+export default function Index() {
+  const { data, error } = useSWR('/api/randomQuote', fetcher);
+  console.log(data);
+  const author = data?.author;
+  let quote = data?.quote;
+
+  if (!data) quote = '...Loading...';
+  if (error) quote = 'Failed to fetch quote';
+
   return (
-    <Layout>
-      <h1>Puggy.js Blog</h1>
-      <ul>
-        {getPosts().map(post => (
-          <li key={post.id}> 
-            <Link href={"/p/[id]"} as={`/p/${post.id}`}>
-              <a>{post.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <main className="center">
+      <div className="quote">{quote}</div>
+      {author && <span className="author">- {author}</span>}
+
       <style>
         {`
-          h1,
-          a {
-            font-family: Arial;
+          main {
+            width: 90%;
+            max-width: 900px;
+            margin: 300px auto;
+            text-align: center;
           }
 
-          ul {
-            padding: 0;
+          .quote {
+            font-family: cursive;
+            color: #e243de;
+            font-size: 24px;
+            padding-bottom: 10px;
           }
 
-          li {
-            list-style: none;
-            margin: 5px 0;
-          }
-
-          a {
-            text-decoration: none;
-            color: blue;
-          }
-
-          a:hover {
-            opacity: 0.6;
+          .author {
+            font-family: sans-serif;
+            color: #559834;
+            font-size: 20px;
           }
         `}
       </style>
-    </Layout>
-  );
+    </main>
+  )
 }
+
+
+
+
+
+// function getPosts() {
+//   return [
+//     {id: 'hello-puggy', title: 'Hello Puggy'},
+//     {id: 'learn-puggyjs', title: 'Learning Puggy.js is awesome'},
+//     {id: 'deploy-puggyjs', title: 'Deploy pugs with ZEIT'}
+//   ];
+// };
+
+// export default function Blog() {
+//   return (
+//     <Layout>
+//       <h1>Puggy.js Blog</h1>
+//       <ul>
+//         {getPosts().map(post => (
+//           <li key={post.id}> 
+//             <Link href={"/p/[id]"} as={`/p/${post.id}`}>
+//               <a>{post.title}</a>
+//             </Link>
+//           </li>
+//         ))}
+//       </ul>
+//       <style>
+//         {`
+//           h1,
+//           a {
+//             font-family: Arial;
+//           }
+
+//           ul {
+//             padding: 0;
+//           }
+
+//           li {
+//             list-style: none;
+//             margin: 5px 0;
+//           }
+
+//           a {
+//             text-decoration: none;
+//             color: blue;
+//           }
+
+//           a:hover {
+//             opacity: 0.6;
+//           }
+//         `}
+//       </style>
+//     </Layout>
+//   );
+// }
 
 // const Index = props => (
 //   <Layout>
