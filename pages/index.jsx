@@ -28,7 +28,7 @@ export default function Blog() {
         {`
           h1,
           a {
-            font-family: 'Arial';
+            font-family: Arial;
           }
 
           ul {

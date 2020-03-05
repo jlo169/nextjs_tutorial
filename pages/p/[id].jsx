@@ -1,5 +1,7 @@
 
 import Layout from '../../components/layout';
+import { useRouter } from 'next/router';
+import Markdown from 'react-markdown';
 // import fetch from 'isomorphic-unfetch';
 
 
@@ -9,10 +11,43 @@ export default function Post() {
   return (
     <Layout>
       <h1>{router.query.id}</h1>
-      <p>This is puggy content inside p folder</p>
+      <div className='markdown'>
+        <Markdown
+          source={`
+          This is a blog post.
+          There can be a [link](/link).
+
+          ### This is a title
+
+          And here's content(?).
+          `}
+        />
+      </div>
+      <style jsx global>
+        {`
+          .markdown {
+            font-family: 'Arial';
+          }
+
+          .markdown a {
+            text-decoration: none;
+            color:blue;
+          }
+
+          .markdown a:hover {
+            opacity: 0.6;
+          }
+
+          .markdown h3 {
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+          }
+        `}
+      </style>
     </Layout>
-  )
-}
+  );
+};
 
 
 
