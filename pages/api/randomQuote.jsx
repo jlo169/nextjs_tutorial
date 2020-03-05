@@ -1,6 +1,7 @@
+
+import quotes from '../../quotes.json';
+
 export default (req, res) => {
-  res.status(200).json({
-    quote: 'Fight for a better tomorrow. Always.',
-    author: 'Pugnelius McPugpug'
-  });
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  res.status(200).json(quote);
 };
